@@ -6,18 +6,41 @@
 		</div>
 	</div>
 
-	<div class="row">
+	<div class="row mb-3">
 		<div class="col-lg-6">
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal">
+			<button type="button" class="btn btn-primary tombolTambahData" data-toggle="modal" data-target="#formModal">
 				Tambah Data Mahasiswa
 			</button>
-			<br><br>
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<div class="col-lg-6">
+			<form action="<?= BASEURL; ?>/mahasiswa/cari" method="post">
+				<div class="input-group">
+				  <input type="text" class="form-control" placeholder="cari mahasiswa.." name="keyword" autocomplete="off" id="keyword">
+				  <div class="input-group-append">
+				    <button class="btn btn-primary" type="submit" id="tombolCari">Cari</button>
+				  </div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-6">
 			<h3>Daftar Mahasiswa</h3>
 			<ul class="list-group">
 				<?php foreach ($data['mhs'] as $mhs) : ?>
-				<li class="list-group-item d-flex justify-content-between align-items-center">
+				<li class="list-group-item ">
 					<?= $mhs['nama']; ?>
-					<a href="<?= BASEURL; ?>/mahasiswa/detail/<?= $mhs['id']; ?>" class="badge badge-primary">Detail</a>
+
+					<a href="<?= BASEURL; ?>/mahasiswa/hapus/<?= $mhs['id']; ?>" class="badge badge-danger float-right ml-1" onclick="return confirm('yakin?');">hapus</a>
+
+					<a href="<?= BASEURL; ?>/mahasiswa/ubah/<?= $mhs['id']; ?>" class="badge badge-success float-right ml-1 tampilModalUbah" data-toggle="modal" data-target="#formModal" data-id="<?= $mhs['id']; ?>">ubah</a>
+
+					<a href="<?= BASEURL; ?>/mahasiswa/detail/<?= $mhs['id']; ?>" class="badge badge-primary float-right">detail</a>
+					
 				</li>
 				<?php endforeach; ?>
 			</ul>		
@@ -36,9 +59,9 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        
+      <div class="modal-body">        
 		<form action="<?= BASEURL; ?>/mahasiswa/Tambah" method="post">
+			<input type="hidden" name="id" id="id">
 
 			<div class="form-group">
 				<label for="nama">Nama</label>
